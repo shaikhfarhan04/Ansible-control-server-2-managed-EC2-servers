@@ -1,0 +1,42 @@
+---
+- name: Configure Apache web servers
+  hosts: webservers
+  become: true
+
+  tasks:
+
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Start and enable Apache
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Create index page
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        mode: "0644"
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Ansible Web Server</title>
+          </head>
+          <body>
+              <h1>Hello from {{ inventory_hostname }}</h1>
+              <p>This server was configured using Terraform + Ansible.</p>
+          </body>
+          </html>
+
+    - name: Verify Apache
+      ansible.builtin.uri:
+        url: http://localhost
+        status_code: 200
+
+    - name: Display success message
+      ansible.builtin.debug:
+        msg: "Apache is running successfully on {{ inventory_hostname }}"

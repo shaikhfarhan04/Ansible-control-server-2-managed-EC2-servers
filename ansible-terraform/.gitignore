@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Terraform variables containing secrets
+*.tfvars
+!example.tfvars
+
+# Generated private key
+*.pem
+
+# Crash logs
+crash.log
+crash.*.log
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

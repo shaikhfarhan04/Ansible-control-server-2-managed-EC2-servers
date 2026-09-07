@@ -1,0 +1,8 @@
+---
+- name: Test Ansible connectivity
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Ping managed servers
+      ansible.builtin.ping:
